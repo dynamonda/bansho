@@ -12,7 +12,6 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /.idea
-/.vscode
 
 # homestead
 /.vagrant
@@ -25,3 +24,7 @@ phpunit.xml
 /user-customizations.sh
 wsl-init.log
 .backup/*
+
+# vscode
+/.vscode
+workspace.code-workspace
