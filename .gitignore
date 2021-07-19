@@ -13,3 +13,15 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+# homestead
+/.vagrant
+phpunit.xml
+/after.sh
+/aliases
+/mysqldump.sql.gz
+/mysql_backup
+/postgres_backup
+/user-customizations.sh
+wsl-init.log
+.backup/*
