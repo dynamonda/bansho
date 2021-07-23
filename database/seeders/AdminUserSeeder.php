@@ -14,7 +14,7 @@ class AdminUserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => '管理者ABC',
             'email' => 'abc@example.com',
-            'password' => Hash::make('test1234'),
+            'password' => Hash::make('test1234'),   // Todo: 本来パスワードは隠匿する情報
         ]);
 
         // 2人目の管理者ユーザー
