@@ -32,7 +32,7 @@
                     -> asset('js/app.js') で js/app.js を読み込む
                     -> require('./bootstrap'); で Bootstrap を読み込む
                 
-                    Bootstrapで定義（現在は4.6.0がインストールされている）
+                    Bootstrapで定義（現在は5.0.2がインストールされている）
             --}}
             <div class="card">
                 <div class="card-header">第二のカードタイトル</div>
