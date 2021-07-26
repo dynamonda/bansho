@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+{{--
+    Bladeの考え方。
+    @extends で親ビューの機能を継承すると宣言
+    @section〜@endsection で自分固有のパーツをつける   
+--}}
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -14,7 +20,24 @@
                         </div>
                     @endif
 
+                    {{--　__(hogehoge)はヘルパ関数。中身を展開する --}}
                     {{ __('You are logged in!') }}
+                </div>
+            </div>
+
+            {{--
+                cardはどこから来た？
+
+                extends('layouts.app') で views/layouts/app.blade.php を読み込む
+                    -> asset('js/app.js') で js/app.js を読み込む
+                    -> require('./bootstrap'); で Bootstrap を読み込む
+                
+                    Bootstrapで定義（現在は4.6.0がインストールされている）
+            --}}
+            <div class="card">
+                <div class="card-header">第二のカードタイトル</div>
+                <div class="card-body">
+                    {{ __('第二のカード') }}
                 </div>
             </div>
         </div>
