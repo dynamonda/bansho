@@ -22,6 +22,15 @@
             </ul>
         </nav>
         <div class="col-md-8">
+            {{--
+                cardはどこから来た？
+
+                extends('layouts.app') で views/layouts/app.blade.php を読み込む
+                    -> asset('js/app.js') で js/app.js を読み込む
+                    -> require('./bootstrap'); で Bootstrap を読み込む
+                
+                    Bootstrapで定義（現在は5.0.2がインストールされている）
+            --}}
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -56,19 +65,16 @@
                 </div>
             </div>
 
-            {{--
-                cardはどこから来た？
-
-                extends('layouts.app') で views/layouts/app.blade.php を読み込む
-                    -> asset('js/app.js') で js/app.js を読み込む
-                    -> require('./bootstrap'); で Bootstrap を読み込む
-                
-                    Bootstrapで定義（現在は5.0.2がインストールされている）
-            --}}
             <div class="card">
-                <div class="card-header">第二のカードタイトル</div>
+                <div class="card-header">テキスト入力テスト</div>
                 <div class="card-body">
-                    {{ __('第二のカード') }}
+                    <form>
+                        <div class="form-group">
+                            <label for="testCommentTextarea">コメントテキストエリア</label>
+                            <textarea class="form-control" id="testCommentTextarea" rows="3"></textarea>
+                            <button type="button" class="btn btn-primary">保存</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
