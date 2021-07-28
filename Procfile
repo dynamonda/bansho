@@ -1,1 +1,1 @@
-web: vendor/bin/bansho-app public/
+web: $(composer config bin-dir)/bansho-app public/
