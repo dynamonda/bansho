@@ -128,5 +128,11 @@
                 </div>
             </div>
         </div>
+
+        <div id="app">
+            <example-component></example-component>
+        </div>
+        <!-- laravelmix-style -->
+        <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>
