@@ -10,6 +10,7 @@ window.Vue = require('vue').default;
 
 // Vueコンポーネント追加
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('card-component', require('./components/CardComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

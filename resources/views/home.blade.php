@@ -69,7 +69,7 @@
                 <div class="card-header">テキスト入力テスト</div>
                 <div class="card-body">
                     <form>
-                        <div id="vuetest" class="form-group">
+                        <div class="form-group">
                             <label for="testCommentTextarea">コメントテキストエリア</label>
                             <textarea class="form-control" id="testCommentTextarea" rows="3"></textarea>
                             <button type="submit" class="btn btn-primary">保存</button>
@@ -83,5 +83,6 @@
 
 <div id="app">
     <example-component></example-component>
+    <card-component></card-component>
 </div>
 @endsection
