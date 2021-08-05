@@ -71,7 +71,7 @@
                     <form>
                         <div class="form-group">
                             <label for="testCommentTextarea">コメントテキストエリア</label>
-                            <textarea class="form-control" id="testCommentTextarea" rows="3"></textarea>
+                            <textarea class="form-control" id="testCommentTextarea" rows="3">{{ __(\App\Models\Profile::whereUser_id(Auth::id())->get()[0]->comment) }}</textarea>
                             <button type="submit" class="btn btn-primary">保存</button>
                         </div>
                     </form>
