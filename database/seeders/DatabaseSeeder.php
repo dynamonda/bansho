@@ -17,5 +17,9 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             TestUserSeeder::class
         ]);
+
+        $this->call([
+            ProfilesTableSeeder::class
+        ]);
     }
 }
