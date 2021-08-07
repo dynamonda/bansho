@@ -57,9 +57,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>ID</td><td>{{ __(Auth::id()) }}</td></tr>
-                            <tr><td>名前</td><td>{{ __(Auth::user()->name) }}</td></tr>
-                            <tr><td>メールアドレス</td><td>{{ __(Auth::user()->email) }}</td></tr>
+                            <tr><td>ID</td><td>{{$user_id}}</td></tr>
+                            <tr><td>名前</td><td>{{ __($user->name) }}</td></tr>
+                            <tr><td>メールアドレス</td><td>{{ __($user->email) }}</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -71,7 +71,7 @@
                     <form>
                         <div class="form-group">
                             <label for="testCommentTextarea">コメントテキストエリア</label>
-                            <textarea class="form-control" id="testCommentTextarea" rows="3">{{ __(\App\Models\Profile::whereUser_id(Auth::id())->get()[0]->comment) }}</textarea>
+                            <textarea class="form-control" id="testCommentTextarea" rows="3">{{$profile->comment}}</textarea>
                             <button type="submit" class="btn btn-primary">保存</button>
                         </div>
                     </form>
