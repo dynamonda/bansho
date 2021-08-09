@@ -30,3 +30,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  *  これは古いバージョンの書き方
  */
 Route::get('/send-debug', [App\Http\Controllers\SendDebugController::class, 'index']);
+Route::post('/send-debug/result', [App\Http\Controllers\SendDebugController::class, 'result']);

@@ -16,4 +16,14 @@ class SendDebugController extends Controller
 
         return view('senddebug', compact('hello', 'tweets', 'users'));
     }
+
+    public function result(Request $request)
+    {
+        $comment = $request->comment;
+        $data = [
+            'result' => '「' . $comment .'」と入力されました',
+        ];
+        
+        return view('senddebug-result', $data);
+    }
 }
