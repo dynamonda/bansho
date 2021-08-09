@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            ProfilesTableSeeder::class
+            ProfilesTableSeeder::class,
+            TweetsTableSeeder::class
         ]);
     }
 }
