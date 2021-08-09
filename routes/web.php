@@ -23,3 +23,10 @@ Route::resource('hello', 'App\Http\Controllers\HelloController');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// SendDebug
+/* 
+ *  Route::get('/send-debug', 'SendDebugController@index');
+ *  これは古いバージョンの書き方
+ */
+Route::get('/send-debug', [App\Http\Controllers\SendDebugController::class, 'index']);
