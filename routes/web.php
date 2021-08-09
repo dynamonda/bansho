@@ -29,5 +29,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  *  Route::get('/send-debug', 'SendDebugController@index');
  *  これは古いバージョンの書き方
  */
-Route::get('/send-debug', [App\Http\Controllers\SendDebugController::class, 'index']);
-Route::post('/send-debug/result', [App\Http\Controllers\SendDebugController::class, 'result']);
+Route::get('/debug/send-debug', [App\Http\Controllers\SendDebugController::class, 'index']);
+Route::post('/debug/send-debug/result', [App\Http\Controllers\SendDebugController::class, 'result']);

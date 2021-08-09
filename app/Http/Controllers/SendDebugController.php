@@ -14,7 +14,8 @@ class SendDebugController extends Controller
         $tweets = Tweet::all();
         $users = User::all();
 
-        return view('senddebug', compact('hello', 'tweets', 'users'));
+        # /でviewsフォルダから参照するらしい
+        return view('/debug/senddebug', compact('hello', 'tweets', 'users'));
     }
 
     public function result(Request $request)
@@ -23,7 +24,7 @@ class SendDebugController extends Controller
         $data = [
             'result' => '「' . $comment .'」と入力されました',
         ];
-        
-        return view('senddebug-result', $data);
+
+        return view('/debug/senddebug-result', $data);
     }
 }

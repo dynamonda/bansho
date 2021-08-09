@@ -19,7 +19,7 @@
                     <li class="list-group-item">{{ $tweet->comment }}</li>
                 @endforeach
             </ul>
-            <form action="{{ url('/send-debug/result') }}" method="POST">
+            <form action="{{ url('/debug/send-debug/result') }}" method="POST">
                 {{ csrf_field() }}
                 <div><textarea name="comment"></textarea></div>
                 <div><input type="submit"></div>
