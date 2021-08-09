@@ -18,6 +18,19 @@ class SendDebugController extends Controller
         return view('/debug/senddebug', compact('hello', 'tweets', 'users'));
     }
 
+    public function add(Request $request)
+    {
+        // 登録する
+        
+
+        // 結果を返す
+        $hello = "Add comment to 「" . $request->comment . "」";
+        $tweets = Tweet::all();
+        $users = User::all();
+
+        return view('/debug/senddebug', compact('hello', 'tweets', 'users'));
+    }
+
     public function result(Request $request)
     {
         $comment = $request->comment;

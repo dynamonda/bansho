@@ -19,11 +19,15 @@
                     <li class="list-group-item">{{ $tweet->comment }}</li>
                 @endforeach
             </ul>
-            <form action="{{ url('/debug/send-debug/result') }}" method="POST">
-                {{ csrf_field() }}
-                <div><textarea name="comment"></textarea></div>
-                <div><input type="submit"></div>
-            </form>
+            @auth
+                <form action="{{ url('/debug/send-debug') }}" method="POST">
+                    {{ csrf_field() }}
+                    <div><textarea name="comment"></textarea></div>
+                    <div><input type="submit"></div>
+                </form>
+            @else
+                <p>送信にはログインが必要です。</p>
+            @endauth
         </div>
     </div>
 </div>
