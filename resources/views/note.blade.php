@@ -11,6 +11,7 @@
                 </div>
             </nav>
             <div class="col-md-8">
+                <editor-component></editor-component>
             </div>
         </div>
     </div>
