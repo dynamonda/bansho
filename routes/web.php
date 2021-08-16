@@ -23,6 +23,7 @@ Route::resource('hello', 'App\Http\Controllers\HelloController');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/note', [App\Http\Controllers\NoteController::class, 'index'])->name('note');
 
 // SendDebug
 /* 
