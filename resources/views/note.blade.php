@@ -11,6 +11,12 @@
                 </div>
             </nav>
             <div class="col-md-8">
+                <div class="list-group">
+                @foreach ($notes as $note)
+                    <a href="#" class="list-group-item list-group-item-action">{{$note->title}}</a>
+                @endforeach
+                </div>
+
                 <editor-component></editor-component>
             </div>
         </div>
