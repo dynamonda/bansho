@@ -19,6 +19,6 @@ class NoteController extends Controller
         $profile = \App\Models\Profile::whereUser_id($user_id)->get()[0];
         $notes = \App\Models\Note::whereUser_id($user_id)->get();
 
-        return view('note', compact('user_id', 'user', 'profile', 'notes'));
+        return view('/note/index', compact('user_id', 'user', 'profile', 'notes'));
     }
 }
