@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ProfilesTableSeeder::class,
-            TweetsTableSeeder::class
+            TweetsTableSeeder::class,
+            NotesTableSeeder::class
         ]);
     }
 }
