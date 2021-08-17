@@ -28,8 +28,20 @@
             this.editor = new EditorJS({
                 holder: 'editorjs',
             });
+
+            this.get_note();
         },
         methods: {
+            get_note: async function() {
+                axios.get('/note/vue/' + this.note_id)
+                .then((res) => {
+                    //this.tasks = res.data;
+                    console.log("受信成功");
+                    console.dir(res);
+                }).catch(err => {
+                    console.error("受信エラー");
+                });
+            },
             save: async function () {
                 const sendurl = 'app/save/' + this.note_id;
                 console.log("SendUrl=" + sendurl);

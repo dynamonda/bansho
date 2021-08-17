@@ -33,4 +33,12 @@ class NoteController extends Controller
 
         return view('/note/show', compact('user_id', 'user', 'profile', 'notes', 'selected_note'));
     }
+
+
+    public function getnote(int $note_id)
+    {
+        $note = \App\Models\Note::find($note_id);
+
+        return $note;
+    }
 }

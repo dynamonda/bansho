@@ -27,6 +27,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/note', [App\Http\Controllers\NoteController::class, 'index'])->name('note');
 Route::get('/note/{note_id}', [App\Http\Controllers\NoteController::class, 'show'])->name('note.show');
 
+// Note Api
+Route::get('/note/vue/{note_id}', [App\Http\Controllers\NoteController::class, 'getnote'])->name('note.vue.get');
+
 // SendDebug
 /* 
  *  Route::get('/send-debug', 'SendDebugController@index');
