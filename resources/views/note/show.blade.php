@@ -22,7 +22,7 @@
                 </div>
                 <p>{{ $selected_note }}</p>
 
-                <editor-component></editor-component>
+                <editor-component :note_id={{ $selected_note->id }}></editor-component>
             </div>
         </div>
     </div>

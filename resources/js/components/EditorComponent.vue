@@ -19,18 +19,23 @@
         data: () => ({
             editor: {},
         }),
+        props: {
+            note_id: {
+                type: Number
+            }
+        },
         mounted(){
             this.editor = new EditorJS({
                 holder: 'editorjs',
             });
         },
         methods: {
-            save(){
-                this.editor.save().then((data) => {
-                    console.log('保存: ' + data);
-                }).catch((err) => {
-                    console.error(err);
-                });
+            save: async function () {
+                const sendurl = 'app/save/' + this.note_id;
+                console.log("SendUrl=" + sendurl);
+
+                var contentData = await this.editor.save();
+                console.log(contentData);
             }
         }
     }
