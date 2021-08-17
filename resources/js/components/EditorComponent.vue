@@ -34,8 +34,21 @@
                 const sendurl = 'app/save/' + this.note_id;
                 console.log("SendUrl=" + sendurl);
 
-                var contentData = await this.editor.save();
+                const contentData = await this.editor.save();
                 console.log(contentData);
+
+                // POST送信
+                axios.post(sendurl, {
+                    data: contentData
+                }).then(() => {
+                    // レスポンスが200の時の処理
+                    console.log("送れたよ")
+                }).catch(err => {
+                    if(err.response) {
+                        // レスポンスが200以外の時の処理
+                        console.log("送信エラーだよ. " + err.name);
+                    }
+                });
             }
         }
     }
