@@ -28,3 +28,6 @@ wsl-init.log
 # vscode
 /.vscode
 workspace.code-workspace
+
+# formatter
+.php-cs-fixer.cache
