@@ -76,7 +76,19 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div id="app">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <nav class="col-md-2 sidebar">
+                            <a href="{{ route('home') }}" class="list-group-item list-group-item-action">Home</a>
+                            <a href="{{ route('note') }}" class="list-group-item list-group-item-action">Note</a>
+                        </nav>
+                        <div class="col-md-8">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>
