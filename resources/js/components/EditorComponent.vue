@@ -51,7 +51,12 @@
                     console.log("受信成功 note_id=" + self.note_id);
                     editor.isReady.then(()=>
                     {
-                        editor.render(res.data.body);
+                        var data = res.data.body;
+                        if(data === null){
+                            editor.clear();
+                            return;
+                        }
+                        editor.render(data);
                     });
                 }).catch(err => {
                     console.error("受信エラー: " + err);

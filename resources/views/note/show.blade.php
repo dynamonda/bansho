@@ -20,8 +20,7 @@
                     @endif
                 @endforeach
                 </div>
-                <p>{{ $selected_note }}</p>
-
+                
                 <editor-component :note_id={{ $selected_note->id }}></editor-component>
             </div>
         </div>
