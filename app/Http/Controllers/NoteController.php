@@ -39,7 +39,7 @@ class NoteController extends Controller
     public function getnote(int $note_id)
     {
         $note = \App\Models\Note::find($note_id);
-        
+
         $data = [
             'note' => $note,
             'body' => json_decode($note->body),
@@ -51,16 +51,20 @@ class NoteController extends Controller
     public function updatenote(Request $request, $note_id)
     {
         $data = $request->get('data');
+        $body = $data['body'];
+        $title = $data['title'];
+
         $note = \App\Models\Note::find($note_id);
 
-        $encoded = json_encode($data);
+        $encoded = json_encode($body);
         $note->body = $encoded;
+        $note->title = $title;
         $note->update();
 
         $mess = [
             'data' => $data,
             'note' => $note,
-            'encode_data' => $encoded,
+            'title' => $data['title']
         ];
 
         return $mess; 

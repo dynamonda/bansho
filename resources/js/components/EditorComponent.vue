@@ -73,13 +73,16 @@
             save: async function () {
                 const sendurl = '/note/vue/' + this.note_id;
                 console.log("SendUrl=" + sendurl);
-
+ 
                 const contentData = await editor.save();
-                console.log(contentData);
+                let sendData = {
+                    "body": contentData,
+                    "title": this.title,
+                };
 
                 // POST送信
                 axios.put(sendurl, {
-                    data: contentData
+                    data: sendData
                 }, {
                     headers: {
                         'Content-Type': "application/json",
