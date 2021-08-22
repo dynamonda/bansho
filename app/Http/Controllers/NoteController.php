@@ -18,7 +18,9 @@ class NoteController extends Controller
         $user_id = Auth::id();
         $user = Auth::user();
         $profile = \App\Models\Profile::whereUser_id($user_id)->get()[0];
-        $notes = \App\Models\Note::whereUser_id($user_id)->get();
+        $notes = \App\Models\Note::whereUser_id($user_id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
 
         return view('/note/index', compact('user_id', 'user', 'profile', 'notes'));
     }
@@ -28,7 +30,9 @@ class NoteController extends Controller
         $user_id = Auth::id();
         $user = Auth::user();
         $profile = \App\Models\Profile::whereUser_id($user_id)->get()[0];
-        $notes = \App\Models\Note::whereUser_id($user_id)->get();
+        $notes = \App\Models\Note::whereUser_id($user_id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
 
         $selected_note = \App\Models\Note::find($note_id);
 
