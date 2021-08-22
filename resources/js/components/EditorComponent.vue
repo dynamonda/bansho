@@ -13,48 +13,71 @@
 
 <script>
     import EditorJS from "@editorjs/editorjs";
+    var editor;
 
     export default {
         name: "NoteForm",
-        data: () => ({
-            editor: {},
-        }),
+        data: function () {
+            return {
+            };
+        },
+        computed: {
+            editorjs() { return this.editor },
+            render(renderData) {
+                const self = this;
+                self.editor.render(renderData);
+            }
+        },
         props: {
             note_id: {
                 type: Number
             }
         },
-        mounted(){
-            this.editor = new EditorJS({
-                holder: 'editorjs',
-            });
-
-            this.get_note();
+        mounted: function(){
+            this.init();
         },
         methods: {
+            init: async function() {
+                editor = new EditorJS({
+                    holder: 'editorjs',
+                });
+
+                await this.get_note();
+            },
             get_note: async function() {
-                axios.get('/note/vue/' + this.note_id)
+                const self = this;
+                axios.get('/note/vue/' + self.note_id)
                 .then((res) => {
-                    //this.tasks = res.data;
-                    console.log("受信成功");
-                    console.dir(res);
+                    console.log("受信成功 note_id=" + self.note_id);
+                    editor.isReady.then(()=>
+                    {
+                        editor.render(res.data.body);
+                    });
                 }).catch(err => {
-                    console.error("受信エラー");
+                    console.error("受信エラー: " + err);
                 });
             },
             save: async function () {
-                const sendurl = 'app/save/' + this.note_id;
+                const sendurl = '/note/vue/' + this.note_id;
                 console.log("SendUrl=" + sendurl);
 
-                const contentData = await this.editor.save();
+                const contentData = await editor.save();
                 console.log(contentData);
 
                 // POST送信
-                axios.post(sendurl, {
+                axios.put(sendurl, {
                     data: contentData
-                }).then(() => {
+                }, {
+                    headers: {
+                        'Content-Type': "application/json",
+                    }
+                }).then( async (result) => {
                     // レスポンスが200の時の処理
                     console.log("送れたよ")
+                    console.dir(result);
+
+                    // 更新
+                    await this.get_note();
                 }).catch(err => {
                     if(err.response) {
                         // レスポンスが200以外の時の処理

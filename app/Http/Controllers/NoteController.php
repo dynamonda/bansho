@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class NoteController extends Controller
 {
@@ -34,11 +35,34 @@ class NoteController extends Controller
         return view('/note/show', compact('user_id', 'user', 'profile', 'notes', 'selected_note'));
     }
 
-
+    // Vue用
     public function getnote(int $note_id)
     {
         $note = \App\Models\Note::find($note_id);
+        
+        $data = [
+            'note' => $note,
+            'body' => json_decode($note->body),
+        ];
 
-        return $note;
+        return $data;
+    }
+
+    public function updatenote(Request $request, $note_id)
+    {
+        $data = $request->get('data');
+        $note = \App\Models\Note::find($note_id);
+
+        $encoded = json_encode($data);
+        $note->body = $encoded;
+        $note->update();
+
+        $mess = [
+            'data' => $data,
+            'note' => $note,
+            'encode_data' => $encoded,
+        ];
+
+        return $mess; 
     }
 }
