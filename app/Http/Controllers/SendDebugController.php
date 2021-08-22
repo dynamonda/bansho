@@ -21,7 +21,7 @@ class SendDebugController extends Controller
     public function add(Request $request)
     {
         // 登録する
-        
+
 
         // 結果を返す
         $hello = "Add comment to 「" . $request->comment . "」";

@@ -71,6 +71,6 @@ class NoteController extends Controller
             'title' => $data['title']
         ];
 
-        return $mess; 
+        return $mess;
     }
 }

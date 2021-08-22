@@ -17,8 +17,7 @@ class TweetsTableSeeder extends Seeder
     {
         // ユーザーを全件取得
         $users = User::all()->random(10);
-        foreach($users as $user)
-        {
+        foreach ($users as $user) {
             $tweet = [
                 'user_id' => $user->id,
                 'comment' => 'こんにちは。'.$user->name.'です。よろしくお願いします。',

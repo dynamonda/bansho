@@ -17,12 +17,10 @@ class NotesTableSeeder extends Seeder
     {
         // ユーザーを全件取得
         $users = User::all();
-        foreach($users as $user)
-        {
+        foreach ($users as $user) {
             // 2〜4件を追加
             $count = rand(2, 4);
-            for($i = 0; $i < $count; $i++)
-            {
+            for ($i = 0; $i < $count; $i++) {
                 $note = [
                     'user_id' => $user->id,
                     'title' => 'No.' . $i + 1 . ' ノート',

@@ -16,7 +16,7 @@ class UpdateHelloTable extends Migration
         Schema::table('hello', function (Blueprint $table) {
             // カラム名変更
             $table->renameColumn('str_2', 'str_opt');
-            
+
             // 新しくカラム追加(null許容)
             $table->integer('count')->nullable();
         });

@@ -16,8 +16,7 @@ class ProfilesTableSeeder extends Seeder
     {
         // ユーザーを全件取得
         $users = DB::table('users')->get();
-        foreach($users as $user)
-        {
+        foreach ($users as $user) {
             $profile = [
                 'user_id' => $user->id,
                 'comment' => '私は'.$user->name.'です。よろしくお願いします。',
