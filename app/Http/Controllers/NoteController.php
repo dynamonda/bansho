@@ -17,32 +17,27 @@ class NoteController extends Controller
     {
         $user_id = Auth::id();
         $user = Auth::user();
-        $profile = \App\Models\Profile::whereUser_id($user_id)->get()[0];
-        $notes = \App\Models\Note::whereUser_id($user_id)
-            ->orderBy('updated_at', 'desc')
-            ->get();
+        $notes = $this->getNotes($user_id);
 
-        return view('/note/index', compact('user_id', 'user', 'profile', 'notes'));
+        return view('/note/index', compact('user_id', 'user', 'notes'));
     }
 
     public function show(Request $request, int $note_id)
     {
         $user_id = Auth::id();
         $user = Auth::user();
-        $profile = \App\Models\Profile::whereUser_id($user_id)->get()[0];
-        $notes = \App\Models\Note::whereUser_id($user_id)
-            ->orderBy('updated_at', 'desc')
-            ->get();
+        $notes = $this->getNotes($user_id);
+        $selected_note = $this->getNoteData($note_id);
 
-        $selected_note = \App\Models\Note::find($note_id);
-
-        return view('/note/show', compact('user_id', 'user', 'profile', 'notes', 'selected_note'));
+        return view('/note/show', compact('user_id', 'user', 'notes', 'selected_note'));
     }
 
+    // =========
     // Vue用
+
     public function getnote(int $note_id)
     {
-        $note = \App\Models\Note::find($note_id);
+        $note = $this->getNoteData($note_id);
 
         $data = [
             'note' => $note,
@@ -58,7 +53,7 @@ class NoteController extends Controller
         $body = $data['body'];
         $title = $data['title'];
 
-        $note = \App\Models\Note::find($note_id);
+        $note = $this->getNoteData($note_id);
 
         $encoded = json_encode($body);
         $note->body = $encoded;
@@ -72,5 +67,20 @@ class NoteController extends Controller
         ];
 
         return $mess;
+    }
+
+    private function getNoteData(int $note_id)
+    {
+        $note = \App\Models\Note::find($note_id);
+        return $note;
+    }
+
+    private function getNotes(int $user_id)
+    {
+        $notes = \App\Models\Note::whereUser_id($user_id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return $notes;
     }
 }
