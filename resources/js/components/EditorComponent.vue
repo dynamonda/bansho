@@ -1,6 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
+            <input class="form-control" type="text" v-model="title">
             <div class="btn-group float-end">
                 <button class="btn" v-on:click="save">保存</button>
             </div>
@@ -19,6 +20,7 @@
         name: "NoteForm",
         data: function () {
             return {
+                title: String
             };
         },
         computed: {
@@ -38,6 +40,7 @@
         },
         methods: {
             init: async function() {
+                
                 editor = new EditorJS({
                     holder: 'editorjs',
                 });
@@ -46,11 +49,16 @@
             },
             get_note: async function() {
                 const self = this;
+                self.title = "";
                 axios.get('/note/vue/' + self.note_id)
                 .then((res) => {
                     console.log("受信成功 note_id=" + self.note_id);
                     editor.isReady.then(()=>
                     {
+                        // タイトルをセット
+                        self.title = res.data.note.title;
+
+                        // 本文をセット
                         var data = res.data.body;
                         if(data === null){
                             editor.clear();
@@ -93,3 +101,4 @@
         }
     }
 </script>
+
