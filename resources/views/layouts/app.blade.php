@@ -81,6 +81,7 @@
                     <div class="row justify-content-center">
                         <nav class="col-md-2 sidebar">
                             <a href="{{ route('home') }}" class="list-group-item list-group-item-action">Home</a>
+                            <a href="{{ route('book') }}" class="list-group-item list-group-item-action">Book</a>
                             <a href="{{ route('note') }}" class="list-group-item list-group-item-action">Note</a>
                         </nav>
                         <div class="col-md-8">
