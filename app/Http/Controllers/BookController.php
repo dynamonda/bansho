@@ -15,4 +15,11 @@ class BookController extends Controller
     {
         return view('/book/index');
     }
+
+    public function search(Request $request)
+    {
+        $title = $request->get('bookTitle');
+
+        return view('/book/index', compact('title'));
+    }
 }
