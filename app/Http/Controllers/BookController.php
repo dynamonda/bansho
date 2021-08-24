@@ -44,6 +44,7 @@ class BookController extends Controller
 
         curl_close($curl);
 
-        return $response;
+        $result = json_decode($response);
+        return $result;
     }
 }

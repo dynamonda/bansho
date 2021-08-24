@@ -15,7 +15,19 @@
     @endisset
 
     @isset($result)
-        <p>{{ $result }}</p>
+        <p>検索結果：{{ $result->count }}</p>
+        <div class="list-group">
+        @foreach ($result->Items as $item)
+            <a href="#" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ $item->Item->title }}</h5>
+                <small>{{ $item->Item->author }}</small>
+            </a>
+        @endforeach
+        </div>
+
+        <div>
+            <p>{{ json_encode($result, JSON_UNESCAPED_UNICODE) }}</p>
+        </div>
     @endisset
 </div>
 @endsection
