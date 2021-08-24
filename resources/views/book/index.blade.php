@@ -13,5 +13,9 @@
     @isset($title)
         <p>検索ワード「{{ $title }}」</p>
     @endisset
+
+    @isset($result)
+        <p>{{ $result }}</p>
+    @endisset
 </div>
 @endsection
