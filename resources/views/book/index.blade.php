@@ -18,10 +18,15 @@
         <p>検索結果：{{ $result->count }}</p>
         <div class="list-group">
         @foreach ($result->Items as $item)
-            <a href="#" class="list-group-item list-group-item-action">
+            {{-- <a href="#" --}}
+            <div class="list-group-item list-group-item-action">
                 <h5 class="mb-1">{{ $item->Item->title }}</h5>
                 <small>{{ $item->Item->author }}</small>
-            </a>
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-primary" onclick="sendSave({{ $item->Item->isbn }})">保存</button>
+                </div>
+            </div>
+            {{-- </a> --}}
         @endforeach
         </div>
 
