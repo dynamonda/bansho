@@ -21,19 +21,41 @@ class BookController extends Controller
     public function search(Request $request)
     {
         $title = $request->get('bookTitle');
-        $result = $this->searchFromAPI($title);
+        $result = $this->searchFromAPI($title, -1);
 
         return view('/book/index', compact('title', 'result'));
     }
 
-    public function searchFromAPI(string $title)
+    public function searchPage(Request $request)
+    {
+        $title = $request->get('bookTitle');
+        $page = $request->get('page');
+        $result = $this->searchFromAPI($title, $page);
+
+        return view('/book/index', compact('title', 'result'));
+    }
+
+    /**
+     * APIを利用して書籍検索を行う
+     *
+     * @param string $title 本のタイトル
+     * @param int $page ページ数（指定しない場合は-1を入力）
+     * @return 検索結果
+    */
+    public function searchFromAPI(string $title, int $page)
     {
         $api_key = config('myapp.rakuten_book_api_id');
 
-        $searchUrl = 
+        $searchUrl =
             "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=" .
-            urlencode($title) . "&applicationId=" . $api_key;
-        
+            urlencode($title) .
+            "&applicationId=" . $api_key;
+
+        // ページ指定を追加
+        if ($page > -1) {
+            $searchUrl .= "&page=" . $page;
+        }
+
         // curlを起動
         $curl = curl_init();
 

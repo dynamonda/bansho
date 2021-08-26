@@ -29,6 +29,13 @@
             {{-- </a> --}}
         @endforeach
         </div>
+        <div class="btn-toolbar">
+            <div class="btn-group me-2">
+                @for ($i = 0; $i < $result->pageCount; $i++)
+                    <a href="{{ route('book.search.page', ['bookTitle'=>$title, 'page'=>$i+1]) }}" class="btn btn-outline-primary">{{ $i + 1 }}</a>
+                @endfor
+            </div>
+        </div>
 
         <div>
             <p>{{ json_encode($result, JSON_UNESCAPED_UNICODE) }}</p>

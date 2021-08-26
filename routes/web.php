@@ -25,7 +25,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/book', [App\Http\Controllers\BookController::class, 'index'])->name('book');
-Route::post('/book', [App\Http\Controllers\BookController::class, 'search'])->name('book.search');
+Route::post('/book/search', [App\Http\Controllers\BookController::class, 'search'])->name('book.search');
+Route::get('/book/search/page', [App\Http\Controllers\BookController::class, 'searchPage'])->name('book.search.page');
 
 Route::get('/note', [App\Http\Controllers\NoteController::class, 'index'])->name('note');
 Route::get('/note/{note_id}', [App\Http\Controllers\NoteController::class, 'show'])->name('note.show');
