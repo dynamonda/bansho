@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use App\Models\Profile;
+
 
 class HomeController extends Controller
 {
@@ -26,7 +30,10 @@ class HomeController extends Controller
     {
         $user_id = Auth::id();
         $user = Auth::user();
-        $profile = \App\Models\Profile::whereUser_id($user_id)->get()[0];
+        $user_model = User::where('id', $user_id)->first();
+
+        // ->profile()だとエラーになる
+        $profile = $user_model->profile;
 
         return view('home', compact('user_id', 'user', 'profile'));
     }
