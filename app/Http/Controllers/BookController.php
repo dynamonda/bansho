@@ -36,6 +36,16 @@ class BookController extends Controller
     }
 
     /**
+     * ajax登録用
+     */
+    public function add(Request $request)
+    {
+        $isbn = $request->get('isbn');
+
+        return $isbn;
+    }
+
+    /**
      * APIを利用して書籍検索を行う
      *
      * @param string $title 本のタイトル
