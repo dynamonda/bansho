@@ -22,3 +22,5 @@ Vue.component('editor-component', require('./components/EditorComponent.vue').de
 const app = new Vue({
     el: '#app',
 });
+
+import "./scripts/book.js"

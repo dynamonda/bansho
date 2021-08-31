@@ -92,10 +92,5 @@
             </div>
         </main>
     </div>
-<script>
-function sendSave(isbn){
-    console.log("保存 isbn=" + isbn);
-}
-</script>
 </body>
 </html>
