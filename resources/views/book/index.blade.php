@@ -23,7 +23,11 @@
                 <h5 class="mb-1">{{ $item->Item->title }}</h5>
                 <small>{{ $item->Item->author }}</small>
                 <div class="btn-group float-end">
-                    <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendSave({{ $item->Item->isbn }})">保存</button>
+                    @if ($item->is_have)
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendSave({{ $item->Item->isbn }})">保存</button>
+                    @else
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ $item->Item->isbn }})">保存</button>
+                    @endif
                 </div>
             </div>
             {{-- </a> --}}

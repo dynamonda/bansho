@@ -77,6 +77,23 @@ class BookController extends Controller
         curl_close($curl);
 
         $result = json_decode($response);
+
+        // 本を持っているかどうかを調べる
+        $result = $this->checkHaveBooks($result);
+
         return $result;
+    }
+
+    /**
+     * 本をもっているかどうかを調べ、結果をobjectに追加する
+     */
+    public function checkHaveBooks(object $data)
+    {
+        foreach ($data->Items as $item)
+        {
+            $item->is_have = false;
+        }
+
+        return $data;
     }
 }
