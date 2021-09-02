@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Dotenv\Util\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use App\Models\Book;
 
 class BookController extends Controller
 {
@@ -15,7 +19,10 @@ class BookController extends Controller
 
     public function index()
     {
-        return view('/book/index');
+        $user = $this->getLoginUser();
+        $books = $user->books;
+
+        return view('/book/index', compact('books'));
     }
 
     public function search(Request $request)
@@ -40,9 +47,48 @@ class BookController extends Controller
      */
     public function add(Request $request)
     {
-        $isbn = $request->get('isbn');
+        $data = $request->get('data');
+        $data = json_decode($data);
 
-        return $isbn;
+        // 本がbooksテーブルに存在しなければ、挿入する
+        Log::debug('data=' . print_r($data, true));
+
+        $isExist = $this->existBook($data);
+        if ($isExist) {
+            Log::debug('bookExist=true');
+
+            $book = $this->findBook($data->isbn);
+            Log::debug('  title=' . $book->title);
+            Log::debug('  isbn=' . $book->isbn);
+            Log::debug('  data=' . print_r($book->detail, true));
+        } else {
+            Log::debug('bookExist=false');
+
+            $book = new Book();
+            $book->title = $data->title;
+            $book->author = $data->author;
+            $book->isbn = $data->isbn;
+            $book->detail = $data;
+
+            // 保存
+            $book->save();
+        }
+
+        // books_users中間テーブルに挿入する
+        // @todo
+
+        return $data->isbn;
+    }
+
+    /**
+     * 現在ログイン中のユーザーを返す
+     */
+    public function getLoginUser()
+    {
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+
+        return $user;
     }
 
     /**
@@ -89,11 +135,26 @@ class BookController extends Controller
      */
     public function checkHaveBooks(object $data)
     {
-        foreach ($data->Items as $item)
-        {
+        foreach ($data->Items as $item) {
             $item->is_have = false;
         }
 
         return $data;
+    }
+
+    /**
+     * DBに本が登録済みか？
+     */
+    public function existBook(object $book)
+    {
+        return DB::table('books')->where('isbn', $book->isbn)->exists();
+    }
+
+    /**
+     * DBからBookを取得する
+     */
+    public function findBook(string $isbn)
+    {
+        return Book::where('isbn', $isbn)->first();
     }
 }

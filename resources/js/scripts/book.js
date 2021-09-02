@@ -1,5 +1,8 @@
-window.sendSave = function sendSave(isbn){
-    console.log("保存 isbn=" + isbn);
+window.sendSave = function sendSave(book){
+    console.log("保存 book=" + book);
+    console.dir(book);
+
+    var isbn = book.isbn;
 
     var csrf = document.getElementsByName("csrf-token")[0].content;
     console.log('CSRF=' + csrf);
@@ -24,5 +27,5 @@ window.sendSave = function sendSave(isbn){
     req.open('POST', '/book/search/ajax/add', true);
     req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     req.setRequestHeader('X-CSRF-TOKEN', csrf);
-    req.send('isbn=' + isbn);
+    req.send('data=' + JSON.stringify(book));
 }

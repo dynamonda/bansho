@@ -10,6 +10,11 @@
 </div>
 <p>Book index content.</p>
 <div>
+    @isset($books)
+        <p>{{ $books }}</p>
+    @endisset
+</div>
+<div>
     @isset($title)
         <p>検索ワード「{{ $title }}」</p>
     @endisset
@@ -24,9 +29,10 @@
                 <small>{{ $item->Item->author }}</small>
                 <div class="btn-group float-end">
                     @if ($item->is_have)
-                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendSave({{ $item->Item->isbn }})">保存</button>
+                        {{-- これガッツリデータ読めちゃうけどいいのかな？ --}}
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
                     @else
-                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ $item->Item->isbn }})">保存</button>
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
                     @endif
                 </div>
             </div>
