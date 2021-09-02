@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Profile;
 
-
 class HomeController extends Controller
 {
     /**

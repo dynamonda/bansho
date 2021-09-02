@@ -38,7 +38,7 @@ Route::get('/note/vue/{note_id}', [App\Http\Controllers\NoteController::class, '
 Route::put('/note/vue/{note_id}', [App\Http\Controllers\NoteController::class, 'updatenote']);
 
 // SendDebug
-/* 
+/*
  *  Route::get('/send-debug', 'SendDebugController@index');
  *  これは古いバージョンの書き方
  */

@@ -42,12 +42,11 @@ class CreateBooksUsersTable extends Migration
     public function down()
     {
         // 外部キー制約を削除
-        Schema::table('books_users', function (Blueprint $table) 
-        {
+        Schema::table('books_users', function (Blueprint $table) {
             $table->dropForeign(['book_id']);
             $table->dropForeign(['user_id']);
         });
-        
+
         Schema::dropIfExists('books_users');
     }
 }
