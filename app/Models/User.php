@@ -42,8 +42,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * ユーザーのプロフィール
+     */
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * 所持している本
+     */
+    public function books()
+    {
+        return $this->belongsToMany(Book::class);
     }
 }

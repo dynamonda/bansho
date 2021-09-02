@@ -12,4 +12,12 @@ class Book extends Model
     protected $casts = [
         'detail' => 'json',
     ];
+
+    /**
+     * 所持しているユーザー
+     */
+    public function users()
+    {
+        $this->belongsToMany(User::class);
+    }
 }
