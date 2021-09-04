@@ -30,7 +30,7 @@
                 <div class="btn-group float-end">
                     @if ($item->Item->is_have)
                         {{-- これガッツリデータ読めちゃうけどいいのかな？ --}}
-                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" {{--onclick="sendSave({{ json_encode($item->Item) }})"--}}>解除</button>
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendDelete({{ json_encode($item->Item) }})">解除</button>
                     @else
                         <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
                     @endif
