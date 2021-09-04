@@ -54,6 +54,8 @@ class BookController extends Controller
         Log::debug('data=' . print_r($data, true));
 
         $isExist = $this->existBook($data);
+        $book = null;
+
         if ($isExist) {
             Log::debug('bookExist=true');
 
@@ -75,7 +77,8 @@ class BookController extends Controller
         }
 
         // books_users中間テーブルに挿入する
-        // @todo
+        $user = $this->getLoginUser();
+        $this->tryRegist($user, $book);
 
         return $data->isbn;
     }
@@ -83,7 +86,7 @@ class BookController extends Controller
     /**
      * 現在ログイン中のユーザーを返す
      */
-    public function getLoginUser()
+    private function getLoginUser(): User
     {
         $user_id = Auth::id();
         $user = User::where('id', $user_id)->first();
@@ -98,7 +101,7 @@ class BookController extends Controller
      * @param int $page ページ数（指定しない場合は-1を入力）
      * @return 検索結果
     */
-    public function searchFromAPI(string $title, int $page)
+    private function searchFromAPI(string $title, int $page)
     {
         $api_key = config('myapp.rakuten_book_api_id');
 
@@ -133,7 +136,7 @@ class BookController extends Controller
     /**
      * 本をもっているかどうかを調べ、結果をobjectに追加する
      */
-    public function checkHaveBooks(object $data)
+    private function checkHaveBooks(object $data)
     {
         foreach ($data->Items as $item) {
             $item->is_have = false;
@@ -145,15 +148,47 @@ class BookController extends Controller
     /**
      * DBに本が登録済みか？
      */
-    public function existBook(object $book)
+    private function existBook(object $book): bool
     {
         return DB::table('books')->where('isbn', $book->isbn)->exists();
     }
 
     /**
+     * books_usersに登録済みか？
+     *
+     * @return DBに追加したか？
+     */
+    private function tryRegist(User $user, Book $book): bool
+    {
+        $isHave = DB::table('books_users')
+            ->where('book_id', $book->id)
+            ->where('user_id', $user->id)
+            ->exists();
+
+        if ($isHave === false) {
+            $isInsert = DB::table('books_users')->insert([
+                'book_id' => $book->id,
+                'user_id' => $user->id
+            ]);
+
+            if ($isInsert) {
+                Log::debug('[BookController.tryRegist] 新しく登録しました');
+            } else {
+                Log::debug('[BookController.tryRegist] 登録に失敗しました');
+            }
+
+            return $isInsert;
+        } else {
+            Log::debug('[BookController.tryRegist] 既に登録済みです');
+        }
+
+        return false;
+    }
+
+    /**
      * DBからBookを取得する
      */
-    public function findBook(string $isbn)
+    private function findBook(string $isbn)
     {
         return Book::where('isbn', $isbn)->first();
     }
