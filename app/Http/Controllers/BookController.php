@@ -138,8 +138,15 @@ class BookController extends Controller
      */
     private function checkHaveBooks(object $data)
     {
+        $user = $this->getLoginUser();
         foreach ($data->Items as $item) {
-            $item->is_have = false;
+            $book = $this->findBook($item->Item->isbn);
+
+            if ($book === null) {
+                $item->Item->is_have = false;
+            } else {
+                $item->Item->is_have = $this->isHaveBook($user, $book);
+            }
         }
 
         return $data;
@@ -154,16 +161,24 @@ class BookController extends Controller
     }
 
     /**
+     * userはbookを持っているか？
+     */
+    private function isHaveBook(User $user, Book $book): bool
+    {
+        return DB::table('books_users')
+            ->where('book_id', $book->id)
+            ->where('user_id', $user->id)
+            ->exists();
+    }
+
+    /**
      * books_usersに登録済みか？
      *
      * @return DBに追加したか？
      */
     private function tryRegist(User $user, Book $book): bool
     {
-        $isHave = DB::table('books_users')
-            ->where('book_id', $book->id)
-            ->where('user_id', $user->id)
-            ->exists();
+        $isHave = $this->isHaveBook($user, $book);
 
         if ($isHave === false) {
             $isInsert = DB::table('books_users')->insert([
@@ -187,8 +202,10 @@ class BookController extends Controller
 
     /**
      * DBからBookを取得する
+     * 
+     * @return Bookもしくはnull
      */
-    private function findBook(string $isbn)
+    private function findBook(string $isbn): ?Book
     {
         return Book::where('isbn', $isbn)->first();
     }

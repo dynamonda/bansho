@@ -28,9 +28,9 @@
                 <h5 class="mb-1">{{ $item->Item->title }}</h5>
                 <small>{{ $item->Item->author }}</small>
                 <div class="btn-group float-end">
-                    @if ($item->is_have)
+                    @if ($item->Item->is_have)
                         {{-- これガッツリデータ読めちゃうけどいいのかな？ --}}
-                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" {{--onclick="sendSave({{ json_encode($item->Item) }})"--}}>解除</button>
                     @else
                         <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
                     @endif
