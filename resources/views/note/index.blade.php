@@ -5,4 +5,7 @@
 @foreach ($notes as $note)
     <a href="{{ route('note.show', ['note_id' => $note->id]) }}" class="list-group-item list-group-item-action">{{$note->title}}</a>
 @endforeach
+
+<note-list-component></note-list-component>
+
 @endsection
