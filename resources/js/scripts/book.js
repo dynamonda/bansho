@@ -28,7 +28,7 @@ window.sendSave = function sendSave(book){
         }
     };
 
-    req.open('POST', '/book/search/ajax/add', true);
+    req.open('POST', '/book/ajax/add', true);
     addCsrfHeader(req);
     req.send('data=' + JSON.stringify(book));
 }
