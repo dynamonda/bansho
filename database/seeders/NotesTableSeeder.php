@@ -24,7 +24,7 @@ class NotesTableSeeder extends Seeder
                 $note = [
                     'user_id' => $user->id,
                     'title' => 'No.' . $i + 1 . ' ノート',
-                    'body' => 'こちらはノートになります。',
+                    'body' => '',
                     'created_at' => now(),
                     'updated_at' => now()
                 ];

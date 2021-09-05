@@ -3,7 +3,10 @@
         <div class="card-header">
             <input class="form-control" type="text" v-model="title">
             <div class="btn-group float-end">
-                <button class="btn" v-on:click="save">保存</button>
+                <!--
+                    <a href="/note" class="btn" v-on:click="save">保存</a>
+                -->
+                <button class="btn" type="button" v-on:click="save">保存</button>
             </div>
         </div>
         <div class="card-body">
@@ -64,7 +67,11 @@
                             editor.clear();
                             return;
                         }
+
+                        console.dir(data);
                         editor.render(data);
+
+                        console.log("初期化完了");
                     });
                 }).catch(err => {
                     console.error("受信エラー: " + err);
@@ -81,7 +88,7 @@
                 };
 
                 // POST送信
-                axios.put(sendurl, {
+                await axios.put(sendurl, {
                     data: sendData
                 }, {
                     headers: {

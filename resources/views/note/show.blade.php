@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+{{--
 <div class="list-group">
 @foreach ($notes as $note)
     @if (!empty($selected_note) && $selected_note->id === $note->id)
@@ -10,6 +11,7 @@
     @endif
 @endforeach
 </div>
+--}}
 
 <editor-component :note_id={{ $selected_note->id }}></editor-component>
 @endsection
