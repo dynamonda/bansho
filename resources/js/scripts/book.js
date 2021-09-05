@@ -1,3 +1,7 @@
+// ボタンテキスト
+const HaveText = '保存';
+const NotHaveText = '解除';
+
 // ユーザー所持に登録
 window.sendSave = function sendSave(book){
     console.log("保存 book=" + book);
@@ -13,9 +17,8 @@ window.sendSave = function sendSave(book){
         var target = document.getElementById('book-botton-' + isbn);
         if(req.readyState == 4){    // 通信の完了時
             if(req.status == 200){  // 通信成功
-                target.innerText = "成功";
-
                 // 表示変更
+                target.innerText = NotHaveText;
                 target.className = "btn btn-primary";
 
                 // Todo: 実行される関数を削除の方に変更
@@ -50,9 +53,8 @@ window.sendDelete = function sendDelete(book){
         var target = document.getElementById('book-botton-' + isbn);
         if(req.readyState == 4){    // 通信の完了時
             if(req.status == 200){  // 通信成功
-                target.innerText = "成功";
-
                 // 表示変更
+                target.innerText = HaveText;
                 target.className = "btn btn-outline-primary";
 
                 // Todo: 実行される関数を追加の方に変更
