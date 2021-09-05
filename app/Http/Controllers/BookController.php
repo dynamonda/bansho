@@ -89,10 +89,28 @@ class BookController extends Controller
     public function delete(Request $request)
     {
         $isbn = $request->get('isbn');
+        $id = Auth::id();
         
-        Log::debug('delete isb=' . $isbn);
+        Log::debug('delete isbn=' . $isbn);
 
-        // @todo; 結合テーブルから削除
+        // 結合テーブルから削除
+        /*
+        select 
+            bu.user_id, bu.book_id, b.isbn, b.title 
+        from
+            books_users bu 
+        INNER JOIN 
+            books as b 
+        ON 
+            bu.book_id = b.id;
+        */
+        $deleted = DB::table('books_users')
+            ->join('books', 'books_users.book_id', '=', 'books.id')
+            ->where('books.isbn', '=', $isbn)
+            ->where('books_users.user_id', '=', $id)
+            ->delete();
+        
+        Log::debug('deleted count=' . $deleted);
     }
 
     /**
