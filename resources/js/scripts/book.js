@@ -22,6 +22,8 @@ window.sendSave = function sendSave(book){
                 target.className = "btn btn-primary";
 
                 // Todo: 実行される関数を削除の方に変更
+                // にしたいが、ひとまず無効
+                target.onclick = "";
 
             }else{                  // 通信失敗
                 target.innerText = "失敗";
@@ -58,6 +60,8 @@ window.sendDelete = function sendDelete(book){
                 target.className = "btn btn-outline-primary";
 
                 // Todo: 実行される関数を追加の方に変更
+                // にしたいが、ひとまず無効
+                target.onclick = "";
 
             }else{                  // 通信失敗
                 target.innerText = "失敗";

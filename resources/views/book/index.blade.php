@@ -11,7 +11,22 @@
 <p>Book index content.</p>
 <div>
     @isset($books)
-        <p>{{ $books }}</p>
+        @foreach ($books as $book)
+            <div class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ $book->title }}</h5>
+                <small>{{ $book->author }}</small>
+                <div class="btn-group float-end">
+                    <button id="book-botton-{{ $book->isbn }}" type="button" class="btn btn-primary" onclick="sendDelete({{ json_encode($book->detail) }})">解除</button>
+                    {{--
+                    @if ($item->Item->is_have)
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendDelete({{ json_encode($item->Item) }})">解除</button>
+                    @else
+                        <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
+                    @endif
+                    --}}
+                </div>
+            </div>
+        @endforeach
     @endisset
 </div>
 <div>
@@ -28,12 +43,14 @@
                 <h5 class="mb-1">{{ $item->Item->title }}</h5>
                 <small>{{ $item->Item->author }}</small>
                 <div class="btn-group float-end">
+                    <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
+                    {{-- これガッツリデータ読めちゃうけどいいのかな？
                     @if ($item->Item->is_have)
-                        {{-- これガッツリデータ読めちゃうけどいいのかな？ --}}
                         <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-primary" onclick="sendDelete({{ json_encode($item->Item) }})">解除</button>
                     @else
                         <button id="book-botton-{{ $item->Item->isbn }}" type="button" class="btn btn-outline-primary" onclick="sendSave({{ json_encode($item->Item) }})">保存</button>
                     @endif
+                    --}}
                 </div>
             </div>
             {{-- </a> --}}
