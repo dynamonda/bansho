@@ -38,7 +38,36 @@ window.sendDelete = function sendDelete(book){
     console.log("ユーザー所持から削除 book" + book);
     console.dir(book);
 
-    // Todo: ajaxで送信
+    const isbn = book.isbn;
+    console.log('isbn=' + isbn);
+
+    // ajaxで送信
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function(){
+        var response = req.responseText;
+        console.log(response);
+
+        var target = document.getElementById('book-botton-' + isbn);
+        if(req.readyState == 4){    // 通信の完了時
+            if(req.status == 200){  // 通信成功
+                target.innerText = "成功";
+
+                // 表示変更
+                target.className = "btn btn-outline-primary";
+
+                // Todo: 実行される関数を追加の方に変更
+
+            }else{                  // 通信失敗
+                target.innerText = "失敗";
+            }
+        }else{  // 通信中
+            target.innerText = "通信中";
+        }
+    };
+
+    req.open('POST', '/book/ajax/delete', true);
+    addCsrfHeader(req);
+    req.send('isbn=' + isbn);
 }
 
 // RequestにCSRFトークン含めヘッダーを追加

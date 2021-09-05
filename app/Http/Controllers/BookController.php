@@ -84,6 +84,18 @@ class BookController extends Controller
     }
 
     /**
+     * ajax消去用
+     */
+    public function delete(Request $request)
+    {
+        $isbn = $request->get('isbn');
+        
+        Log::debug('delete isb=' . $isbn);
+
+        // @todo; 結合テーブルから削除
+    }
+
+    /**
      * 現在ログイン中のユーザーを返す
      */
     private function getLoginUser(): User

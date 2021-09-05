@@ -29,6 +29,7 @@ Route::post('/book/search', [App\Http\Controllers\BookController::class, 'search
 Route::get('/book/search/page', [App\Http\Controllers\BookController::class, 'searchPage'])->name('book.search.page');
 
 Route::post('/book/search/ajax/add', [App\Http\Controllers\BookController::class, 'add'])->name('book.search.ajax.add');
+Route::post('/book/ajax/delete', [App\Http\Controllers\BookController::class, 'delete'])->name('book.ajax.delete');
 
 Route::get('/note', [App\Http\Controllers\NoteController::class, 'index'])->name('note');
 Route::get('/note/{note_id}', [App\Http\Controllers\NoteController::class, 'show'])->name('note.show');
