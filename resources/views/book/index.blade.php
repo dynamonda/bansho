@@ -15,7 +15,8 @@
             <div class="list-group-item list-group-item-action">
                 <h5 class="mb-1">{{ $book->title }}</h5>
                 <small>{{ $book->author }}</small>
-                <div class="btn-group float-end">
+                <div class="btn-group">
+                    <a href="{{ route('note') }}" id="note-button-{{ $book->id }}" class="btn btn-outline-primary">note</a>
                     <button id="book-botton-{{ $book->isbn }}" type="button" class="btn btn-primary" onclick="sendDelete({{ json_encode($book->detail) }})">解除</button>
                     {{--
                     @if ($item->Item->is_have)
