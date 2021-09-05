@@ -101,6 +101,9 @@
 
                     // 更新
                     await this.get_note();
+
+                    // Todo:アラートダイアログ押したら「/note」に遷移できれば
+                    alert('内容を保存しました');
                 }).catch(err => {
                     if(err.response) {
                         // レスポンスが200以外の時の処理
