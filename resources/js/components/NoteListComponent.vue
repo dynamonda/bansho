@@ -1,5 +1,11 @@
 <template>
-    <p>NoteListComponent</p>
+    <div>
+        <p>NoteListComponent</p>
+        <div ref="note_list">
+            <div class="spinner-border">
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -23,6 +29,11 @@
                 .then((res) => {
                     console.log("受信成功 user_id=" + self.user_id);
                     console.dir(res.data);
+
+                    // 変更
+                    const note_list = self.$refs.note_list;
+                    note_list.innerHTML = '<p>読み込み完了しました。</p>';
+
                     /*
                     editor.isReady.then(()=>
                     {
