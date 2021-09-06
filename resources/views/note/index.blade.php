@@ -6,6 +6,6 @@
     <a href="{{ route('note.show', ['note_id' => $note->id]) }}" class="list-group-item list-group-item-action">{{$note->title}}</a>
 @endforeach
 
-<note-list-component></note-list-component>
+<note-list-component :user_id={{ $user_id }}></note-list-component>
 
 @endsection

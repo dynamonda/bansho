@@ -37,6 +37,7 @@ Route::get('/note/{note_id}', [App\Http\Controllers\NoteController::class, 'show
 // Note Api
 Route::get('/note/vue/{note_id}', [App\Http\Controllers\NoteController::class, 'getnote'])->name('note.vue.get');
 Route::put('/note/vue/{note_id}', [App\Http\Controllers\NoteController::class, 'updatenote']);
+Route::get('/note/vue/list/{user_id}', [App\Http\Controllers\NoteController::class, 'getNotes']);
 
 // SendDebug
 /*

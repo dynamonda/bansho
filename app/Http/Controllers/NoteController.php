@@ -75,7 +75,13 @@ class NoteController extends Controller
         return $note;
     }
 
-    private function getNotes(int $user_id)
+    /**
+     * ユーザーのNoteを取得する
+     * 
+     * vueからも呼び出しされている
+     * Todo: 後で分割予定
+     */
+    public function getNotes(int $user_id)
     {
         $notes = \App\Models\Note::whereUser_id($user_id)
             ->orderBy('updated_at', 'desc')
