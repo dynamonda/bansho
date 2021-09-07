@@ -69,6 +69,15 @@ class NoteController extends Controller
         return $mess;
     }
 
+    public function createNote(Request $request)
+    {
+        $data = [
+            'data' => "CreateNote() result"
+        ];
+
+        return $data;
+    }
+
     private function getNoteData(int $note_id)
     {
         $note = \App\Models\Note::find($note_id);

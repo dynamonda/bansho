@@ -1,6 +1,9 @@
 <template>
     <div>
         <p>NoteListComponent</p>
+         <div class="row justify-content-end">
+            <button type="button" class="btn btn-primary col-2" v-on:click="add_note">新規作成</button>
+        </div>
         <div ref="note_list">
             <div class="spinner-border">
             </div>
@@ -19,8 +22,18 @@
             this.init();
         },
         methods: {
-            init: async function() {
-                this.get_note();
+            init: async function(){
+                // 更新
+                await this.get_note();
+                console.log('表示完了');
+            },
+            update_list: async function() {
+                // Spinnerに変更
+                const note_list = this.$refs.note_list;
+                note_list.innerHTML = '<div class="spinner-border"></div>';
+
+                // 更新
+                await this.get_note();
                 console.log('表示完了');
             },
             get_note: async function() {
@@ -45,6 +58,20 @@
                     console.error("受信エラー: " + err);
                 });
             },
+            add_note: function (event) {
+                console.log("追加");
+                axios.post('/note/vue/create')
+                .then((res) => {
+                    console.log("受信成功");
+                    console.dir(res);
+
+                    // 更新
+                    this.update_list();
+
+                }).catch(err => {
+                    console.error("受信エラー: " + err);
+                });
+            }
         }
     }
 </script>
