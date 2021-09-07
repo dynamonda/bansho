@@ -30,29 +30,17 @@
                     console.log("受信成功 user_id=" + self.user_id);
                     console.dir(res.data);
 
+                    // 更新内容を作成
+                    var html = '<div class="list-group">';
+                    res.data.forEach(function(element){
+                        html += '<a href="note/' + element.id + '" class="list-group-item list-group-item-action">' + element.title + '</a>';
+                    });
+                    html += '</div>';
+
                     // 変更
                     const note_list = self.$refs.note_list;
-                    note_list.innerHTML = '<p>読み込み完了しました。</p>';
+                    note_list.innerHTML = html;
 
-                    /*
-                    editor.isReady.then(()=>
-                    {
-                        // タイトルをセット
-                        self.title = res.data.note.title;
-
-                        // 本文をセット
-                        var data = res.data.body;
-                        if(data === null){
-                            editor.clear();
-                            return;
-                        }
-
-                        console.dir(data);
-                        editor.render(data);
-
-                        console.log("初期化完了");
-                    });
-                    */
                 }).catch(err => {
                     console.error("受信エラー: " + err);
                 });
