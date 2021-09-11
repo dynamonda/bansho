@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+
+use App\Models\Note;
 
 class NoteController extends Controller
 {
@@ -71,16 +74,26 @@ class NoteController extends Controller
 
     public function createNote(Request $request)
     {
-        $data = [
-            'data' => "CreateNote() result"
+        Log::debug('[createNote] 開始');
+
+        $note = Note::create([
+            'user_id' => Auth::id(),
+            'title' => '新しいノート',
+            'body' => '',
+        ]);
+
+        Log::debug('[createNote] 作成');
+
+        $mess = [
+            'note' => $note,
         ];
 
-        return $data;
+        return $mess;
     }
 
     private function getNoteData(int $note_id)
     {
-        $note = \App\Models\Note::find($note_id);
+        $note = Note::find($note_id);
         return $note;
     }
 
@@ -92,7 +105,7 @@ class NoteController extends Controller
      */
     public function getNotes(int $user_id)
     {
-        $notes = \App\Models\Note::whereUser_id($user_id)
+        $notes = Note::whereUser_id($user_id)
             ->orderBy('updated_at', 'desc')
             ->get();
 
