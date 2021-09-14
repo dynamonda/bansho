@@ -44,10 +44,26 @@
                     console.dir(res.data);
 
                     // 更新内容を作成
-                    var html = '<div class="list-group">';
-                    res.data.forEach(function(element){
-                        html += '<a href="note/' + element.id + '" class="list-group-item list-group-item-action">' + element.title + '</a>';
+                    const datas = res.data.map(element => Object.create({id: element.id, title: element.title}));
+                    console.log("datas print");
+                    console.dir(datas);
+
+                    var html = '<div class="row">';
+
+                    // リスト
+                    html += '<div class="list-group col-10">';
+                    datas.forEach(function(data){
+                        html += '<a href="note/' + data.id + '" class="list-group-item list-group-item-action">' + data.title + '</a>';
                     });
+                    html += '</div>';
+
+                    // 削除ボタン
+                    html += '<div class="list-group col">';
+                    datas.forEach(function(data){
+                        html += '<button type="button" class="list-group-item list-group-item-action">' + '削除</button>';
+                    })
+                    html += '</div>';
+
                     html += '</div>';
 
                     // 変更
@@ -71,6 +87,9 @@
                 }).catch(err => {
                     console.error("受信エラー: " + err);
                 });
+            },
+            delete_note: function (event) {
+                console.log("削除");
             }
         }
     }
