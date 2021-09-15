@@ -8,9 +8,6 @@
             <div class="spinner-border"></div>
         </div>
         <div v-if="!loading">
-            <div ref="note_list">
-            </div>
-
             <div class="row">
                 <div class="list-group col-10">
                     <a v-for="note in noteList" v-bind:key="note.id"
