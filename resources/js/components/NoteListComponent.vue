@@ -10,6 +10,18 @@
         <div v-if="!loading">
             <div ref="note_list">
             </div>
+
+            <div class="row">
+                <div class="list-group col-10">
+                    <a v-for="note in noteList" v-bind:key="note.id"
+                        v-bind:href="'note/' + note.id"
+                        class="list-group-item list-group-item-action">{{ note.title }}</a>
+                </div>
+                <div class="list-group col">
+                    <button v-for="note in noteList" v-bind:key="note.id"
+                        type="button" class="list-group-item list-group-item-action">削除</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -23,7 +35,8 @@
         },
         data: function() {
             return {
-                loading: true
+                loading: true,
+                noteList: []
             };
         },
         mounted: function() {
@@ -37,7 +50,6 @@
             },
             add_note: function (event) {
                 console.log("追加");
-                this.clear_note_list();
                 this.loading = true;
 
                 axios.post('/note/vue/create')
@@ -70,39 +82,14 @@
                     console.dir(res.data);
 
                     // 更新内容を作成
-                    const datas = res.data.map(element => Object.create({id: element.id, title: element.title}));
-                    console.log("datas print");
-                    console.dir(datas);
+                    this.noteList.splice(0, this.noteList.length);
+                    this.noteList = res.data.map(element => Object.create({id: element.id, title: element.title}));
+                    console.dir(this.noteList);
 
-                    var html = '<div class="row">';
-
-                    // リスト
-                    html += '<div class="list-group col-10">';
-                    datas.forEach(function(data){
-                        html += '<a href="note/' + data.id + '" class="list-group-item list-group-item-action">' + data.title + '</a>';
-                    });
-                    html += '</div>';
-
-                    // 削除ボタン
-                    html += '<div class="list-group col">';
-                    datas.forEach(function(data){
-                        html += '<button type="button" class="list-group-item list-group-item-action">' + '削除</button>';
-                    })
-                    html += '</div>';
-
-                    html += '</div>';
-
-                    // 変更
-                    const note_list = self.$refs.note_list;
-                    note_list.innerHTML = html;
-
+                    console.log('this.noteList.length=' + this.noteList.length);
                 }).catch(err => {
                     console.error("受信エラー: " + err);
                 });
-            },
-            clear_note_list: function() {
-                const note_list = this.$refs.note_list;
-                note_list.innerHTML = "";
             }
         }
     }
