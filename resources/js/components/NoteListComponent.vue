@@ -4,8 +4,11 @@
          <div class="row justify-content-end">
             <button type="button" class="btn btn-primary col-2" v-on:click="add_note">新規作成</button>
         </div>
-        <div ref="note_list">
-            <div class="spinner-border">
+        <div v-if="loading">
+            <div class="spinner-border"></div>
+        </div>
+        <div v-if="!loading">
+            <div ref="note_list">
             </div>
         </div>
     </div>
@@ -18,20 +21,43 @@
                 type: Number
             }
         },
+        data: function() {
+            return {
+                loading: true
+            };
+        },
         mounted: function() {
             this.init();
         },
         methods: {
             init: async function(){
-                // 更新
-                await this.get_note();
-                console.log('表示完了');
+                this.loading = true;
+                await this.update_list();
+                this.loading = false;
+            },
+            add_note: function (event) {
+                console.log("追加");
+                this.clear_note_list();
+                this.loading = true;
+
+                axios.post('/note/vue/create')
+                .then((res) => {
+                    console.log("受信成功");
+                    console.dir(res);
+
+                    // 更新
+                    this.update_list();
+                    
+                    this.loading = false;
+                }).catch(err => {
+                    console.error("受信エラー: " + err);
+                    this.loading = false;
+                });
+            },
+            delete_note: function (event) {
+                console.log("削除");
             },
             update_list: async function() {
-                // Spinnerに変更
-                const note_list = this.$refs.note_list;
-                note_list.innerHTML = '<div class="spinner-border"></div>';
-
                 // 更新
                 await this.get_note();
                 console.log('表示完了');
@@ -74,22 +100,9 @@
                     console.error("受信エラー: " + err);
                 });
             },
-            add_note: function (event) {
-                console.log("追加");
-                axios.post('/note/vue/create')
-                .then((res) => {
-                    console.log("受信成功");
-                    console.dir(res);
-
-                    // 更新
-                    this.update_list();
-
-                }).catch(err => {
-                    console.error("受信エラー: " + err);
-                });
-            },
-            delete_note: function (event) {
-                console.log("削除");
+            clear_note_list: function() {
+                const note_list = this.$refs.note_list;
+                note_list.innerHTML = "";
             }
         }
     }
