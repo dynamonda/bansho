@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+//import BootstrapVue from "bootstrap-vue";
+
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -22,6 +24,7 @@ Vue.component('note-list-component', require('./components/NoteListComponent.vue
 
 const app = new Vue({
     el: '#app',
+    //BootstrapVue,
 });
 
 import "./scripts/book.js"
