@@ -91,6 +91,14 @@ class NoteController extends Controller
         return $mess;
     }
 
+    /**
+     * Noteを削除する
+     */
+    public function deleteNote(int $note_id)
+    {
+        Log::debug('[deleteNote] 開始, note_id=' . $note_id);
+    }
+
     private function getNoteData(int $note_id)
     {
         $note = Note::find($note_id);

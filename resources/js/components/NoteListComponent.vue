@@ -16,7 +16,8 @@
                 </div>
                 <div class="list-group col">
                     <button v-for="note in noteList" v-bind:key="note.id"
-                        type="button" class="list-group-item list-group-item-action">削除</button>
+                        v-on:click="delete_note(note.id)"
+                        class="list-group-item list-group-item-action">削除</button>
                 </div>
             </div>
         </div>
@@ -63,8 +64,14 @@
                     this.loading = false;
                 });
             },
-            delete_note: function (event) {
-                console.log("削除");
+            delete_note: async function (note_id) {
+                console.log("削除 note_id=" + note_id);
+                // 更新処理
+                this.loading = true;
+                this.clear_note_list();
+                await this.post_delete_note(note_id);
+                await this.update_list();
+                this.loading = false;
             },
             update_list: async function() {
                 // 更新
@@ -79,7 +86,7 @@
                     console.dir(res.data);
 
                     // 更新内容を作成
-                    this.noteList.splice(0, this.noteList.length);
+                    this.clear_note_list();
                     this.noteList = res.data.map(element => Object.create({id: element.id, title: element.title}));
                     console.dir(this.noteList);
 
@@ -87,6 +94,17 @@
                 }).catch(err => {
                     console.error("受信エラー: " + err);
                 });
+            },
+            post_delete_note: async function(note_id) {
+                try {
+                    const res = await axios.post('/note/vue/delete/' + note_id);
+                    console.log("Note削除 POST送信に成功, note_id=" + note_id, "res.status=" + res.status);
+                } catch (err) {
+                    console.error("受信エラー: " + err);
+                }
+            },
+            clear_note_list: function() {
+                this.noteList.splice(0, this.noteList.length);
             }
         }
     }

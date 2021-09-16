@@ -39,6 +39,7 @@ Route::get('/note/vue/{note_id}', [App\Http\Controllers\NoteController::class, '
 Route::put('/note/vue/{note_id}', [App\Http\Controllers\NoteController::class, 'updatenote']);
 Route::get('/note/vue/list/{user_id}', [App\Http\Controllers\NoteController::class, 'getNotes']);
 Route::post('/note/vue/create', [App\Http\Controllers\NoteController::class, 'createNote']);
+Route::post('/note/vue/delete/{note_id}', [App\Http\Controllers\NoteController::class, 'deleteNote']);
 
 // SendDebug
 /*
