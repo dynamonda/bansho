@@ -97,6 +97,7 @@ class NoteController extends Controller
     public function deleteNote(int $note_id)
     {
         Log::debug('[deleteNote] 開始, note_id=' . $note_id);
+        Note::destroy($note_id);
     }
 
     private function getNoteData(int $note_id)
