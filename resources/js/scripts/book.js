@@ -4,10 +4,7 @@ const NotHaveText = '解除';
 
 // ユーザー所持に登録
 window.sendSave = function sendSave(book){
-    console.log("保存 book=" + book);
-    console.dir(book);
-
-    var isbn = book.isbn;
+    const isbn = book.isbn;
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function(){
@@ -33,18 +30,18 @@ window.sendSave = function sendSave(book){
         }
     };
 
-    req.open('POST', '/book/ajax/add', true);
+    const url = getRoot() + '/book/ajax/add';
+    console.log("保存 book=" + book + ", sendTo=" + url + ", isbn=" + isbn);
+    console.dir(book);
+
+    req.open('POST', url, true);
     addCsrfHeader(req);
     req.send('data=' + JSON.stringify(book));
 }
 
 // ユーザー所持から削除
 window.sendDelete = function sendDelete(book){
-    console.log("ユーザー所持から削除 book" + book);
-    console.dir(book);
-
     const isbn = book.isbn;
-    console.log('isbn=' + isbn);
 
     // ajaxで送信
     var req = new XMLHttpRequest();
@@ -71,7 +68,11 @@ window.sendDelete = function sendDelete(book){
         }
     };
 
-    req.open('POST', '/book/ajax/delete', true);
+    const url = getRoot() + '/book/ajax/delete';
+    console.log("ユーザー所持から削除 book=" + book + ", sendTo=" + url + ', isbn=' + isbn);
+    console.dir(book);
+
+    req.open('POST', url, true);
     addCsrfHeader(req);
     req.send('isbn=' + isbn);
 }
@@ -83,4 +84,22 @@ function addCsrfHeader(req)
 
     req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     req.setRequestHeader('X-CSRF-TOKEN', csrf);
+}
+
+// ルートURLを取得
+function getRoot()
+{
+    var href = document.location.href
+        .replace("https://", '').replace('http://', '');
+    const hrefs = href.split('/');
+    //console.log("href=" + href);
+    //console.log(hrefs);
+
+    if(hrefs.length >= 2 && hrefs[1] === 'bansho')
+    {
+        // リリース環境用
+        return "/bansho";
+    }
+
+    return "";
 }
